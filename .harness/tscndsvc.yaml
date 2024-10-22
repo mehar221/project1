@@ -1,0 +1,36 @@
+service:
+  name: tscnd-svc
+  identifier: tscndsvc
+  serviceDefinition:
+    type: Kubernetes
+    spec:
+      manifests:
+        - manifest:
+            identifier: mymanifest
+            type: K8sManifest
+            spec:
+              store:
+                type: Github
+                spec:
+                  connectorRef: bgdeployconnector
+                  gitFetchType: Branch
+                  paths:
+                    - svc.yaml
+                  repoName: project1
+                  branch: master
+              skipResourceVersioning: false
+              enableDeclarativeRollback: false
+      artifacts:
+        primary:
+          primaryArtifactRef: <+input>
+          sources:
+            - spec:
+                connectorRef: dockerconnector
+                imagePath: library/nginx
+                tag: latest
+                digest: ""
+              identifier: docker
+              type: DockerRegistry
+  gitOpsEnabled: false
+  orgIdentifier: default
+  projectIdentifier: Manisha
