@@ -3,7 +3,7 @@ kind: Service
 metadata:
   name: my-service
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app.kubernetes.io/name: my-deployment
   ports:
